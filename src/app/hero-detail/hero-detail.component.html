@@ -1,0 +1,52 @@
+<div *ngIf="hero&&weapon">
+  <h2>{{ hero.name | uppercase }} Details</h2>
+  <div><span>id: </span>{{hero.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="hero.name" placeholder="name"/>
+    </label>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div *ngIf="weapon">
+        <h4>Ce héro possède une arme</h4>
+        <a routerLink="/detailweapon/{{weapon.id}}" >{{weapon.name}}</a>
+        <label>Choisir une autre arme</label>
+        <select [(ngModel)]="hero.idWeapon" (change)="changeWeapon()">
+          <option *ngFor="let w of weapons" [ngValue]="w.id">{{w.name}}</option>
+        </select>
+      </div>
+      <div>
+        <h4>Caractéristiques du héro</h4>
+        <p *ngIf="this.hero.getPoints()>=0" >Il reste: {{this.hero.getPoints()}} à répartir</p>
+        <p *ngIf="this.hero.getPoints()<0" style="color:red;">{{message()}}</p>
+        <div>
+          <span><b>{{hero.atk + weapon.atk}}</b> Attaque: </span>{{hero.atk}} + ({{weapon.atk}})
+          <button (click)="moins('atk')">-</button>
+          <button (click)="plus('atk')">+</button>
+        </div>
+        <div>
+          <span><b>{{hero.esq + weapon.esq}}</b> Esquive: </span>{{hero.esq}} + ({{weapon.esq}})
+          <button (click)="moins('esq')">-</button>
+          <button (click)="plus('esq')">+</button>
+        </div>
+        <div>
+          <span><b>{{hero.pv + weapon.pv}}</b> Point de vie: </span>{{hero.pv}} + ({{weapon.pv}})
+          <button (click)="moins('pv')">-</button>
+          <button (click)="plus('pv')">+</button>
+        </div>
+        <div>
+          <span><b>{{hero.dgts + weapon.dgts}}</b> Dégats: </span>{{hero.dgts}} + ({{weapon.dgts}})
+          <button (click)="moins('dgts')">-</button>
+          <button (click)="plus('dgts')">+</button>
+        </div>
+        <br>
+        <button (click)="goBack()">Go back</button>
+        <button (click)="save()">Save</button>
+      </div>
+    </div>
+    <div class="col-8">
+      <img class="portrait-hero" src="assets\img\{{hero.portrait}}">
+    </div>
+  </div>
+</div>

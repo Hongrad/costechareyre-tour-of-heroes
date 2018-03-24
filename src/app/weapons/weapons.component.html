@@ -1,0 +1,21 @@
+<h2>All weapon</h2>
+
+<div>
+  <label>Weapon name:
+    <input #weaponName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(weaponName.value); weaponName.value=''">
+    create a new weapon
+  </button>
+</div>
+
+<ul class="weapons">
+  <li *ngFor="let weapon of weapons">
+    <a routerLink="/detailweapon/{{weapon.id}}">
+      <span class="badge">{{weapon.id}}</span> {{weapon.name}}
+    </a>
+    <button class="delete" title="delete weapon"
+    (click)="delete(weapon)">x</button>
+  </li>
+</ul>

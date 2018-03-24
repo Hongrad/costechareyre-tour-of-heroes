@@ -1,0 +1,36 @@
+<p>une arme</p>
+<div *ngIf="weapon">
+  <h2>{{ weapon.name | uppercase }} Details</h2>
+  <div><span>id: </span>{{weapon.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="weapon.name" placeholder="name"/>
+    </label>
+  </div>
+  <h4>Caractéristiques de l'arme</h4>
+  <p *ngIf="this.weapon.getPoints()!==0" >Il reste: {{-this.weapon.getPoints()}} à répartir</p>
+  <p *ngIf="this.weapon.getPoints()!==0" style="color:red;">{{message()}}</p>
+  <div>
+    <span>Attaque: </span>{{weapon.atk}}
+    <button (click)="moins('atk')">-</button>
+    <button (click)="plus('atk')">+</button>
+  </div>
+  <div>
+    <span>Esquive: </span>{{weapon.esq}}
+    <button (click)="moins('esq')">-</button>
+    <button (click)="plus('esq')">+</button>
+  </div>
+  <div>
+    <span>Point de vie: </span>{{weapon.pv}}
+    <button (click)="moins('pv')">-</button>
+    <button (click)="plus('pv')">+</button>
+  </div>
+  <div>
+    <span>Dégats: </span>{{weapon.dgts}}
+    <button (click)="moins('dgts')">-</button>
+    <button (click)="plus('dgts')">+</button>
+  </div>
+  <br>
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
+</div>

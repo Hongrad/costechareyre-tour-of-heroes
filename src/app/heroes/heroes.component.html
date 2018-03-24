@@ -1,0 +1,106 @@
+
+<div class="container">
+  <h2>My Heroes</h2>
+
+  <div>
+    <label>Hero name:
+      <input #heroName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(heroName.value); heroName.value=''">
+      add
+    </button>
+    <!--<select [(ngModel)]="hero.idWeapon" (change)="changeWeapon()">
+    <option *ngFor="let w of weapons" [ngValue]="w.id">{{w.name}}</option>
+  </select>-->
+  <!-- Bonus faire un search -->
+  </div>
+<!--
+<ul class="heroes">
+<li *ngFor="let hero of heroes">
+<a routerLink="/detailhero/{{hero.id}}">
+<span class="badge">{{hero.id}}</span> {{hero.name}}
+</a>
+<button class="delete" title="delete hero" (click)="delete(hero)">x</button>
+</li>
+</ul>--
+<table class="table" matSort (matSortChange)="sortData($event)" matSortActive="name" matSortDirection="asc" matSortDisableClear>
+<thead>
+<tr>
+<td mat-sort-header="id">Id</td>
+<td mat-sort-header="name">Nom</td>
+<td mat-sort-header="atk">Attaque</td>
+<td mat-sort-header="esq">Esquive</td>
+<td mat-sort-header="pv">Points de vie</td>
+<td mat-sort-header="dgts">Dégats</td>
+</tr>
+</thead>
+<tr *ngFor="let hero of sortedData">
+<td><a routerLink="/detailhero/{{hero.id}}">{{hero.id}}</a></td>
+<td><a routerLink="/detailhero/{{hero.id}}">{{hero.name}}</a></td>
+<td>{{hero.atk}}</td>
+<td>{{hero.esq}}</td>
+<td>{{hero.pv}}</td>
+<td>{{hero.dgts}}</td>
+<td><button class="btn btn-dangerr" title="delete hero" (click)="delete(hero)">x</button></td>
+</tr>
+</table>-->
+  <div class="table">
+    <div class="example-header">
+      <mat-form-field class="full-width">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <a routerLink="/detailhero/{{element.id}}">{{element.name}}</a></mat-cell>
+      </ng-container>
+
+      <!-- Atk Column -->
+      <ng-container matColumnDef="atk">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Attack </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.atk}} </mat-cell>
+      </ng-container>
+
+      <!-- Esq Column -->
+      <ng-container matColumnDef="esq">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Dodge </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.esq}} </mat-cell>
+      </ng-container>
+
+      <!-- PV Column -->
+      <ng-container matColumnDef="pv">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Life </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pv}} </mat-cell>
+      </ng-container>
+
+      <!-- Dgts Column -->
+      <ng-container matColumnDef="dgts">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Damage </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dgts}} </mat-cell>
+      </ng-container>
+
+      <!-- Dgts Column -->
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef > Action </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <a class="btn btn-primary" title="Edit hero" routerLink="/detailhero/{{element.id}}"><i class="fa fa-edit"></i></a> /
+          <button class="btn btn-danger" title="Delete hero" (click)="delete(element)"><i class="fa fa-times mat-icon"></i></button> /
+            <a class="btn btn-success" title="Play with hero" routerLink="/game/{{element.id}}"><i class="fa fa-play"></i></a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+.portrait-hero{
+  max-width: 300px;
+  height: auto;
+}
+
+
+.score {
+    text-align: left;
+    margin-left: 40px;
+    font-size: 24px;
+    left: 0;
+}
+
+@keyframes upscore {
+    from {
+        top: 40px;
+        opacity: 1;
+    }
+    to {
+        top: 0px;
+        opacity: 0.5;
+    }
+}
+
+.upscore {
+    animation: upscore 2s;
+    position: absolute;
+    top: 0px;
+    left: 150px;
+    font-size: 20px;
+}
