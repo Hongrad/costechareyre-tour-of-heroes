@@ -4,7 +4,7 @@
       <h2>{{ hero.name | uppercase }}</h2>
       <img class="portrait-hero" src="assets\img\{{hero.portrait}}">
       <div class="w3-light-grey w3-round col-8 nopadding">
-        <div class="w3-container w3-round w3-green" style="width:100%">{{hero.pv}} /{{hero.pv}} PV</div>
+        <div class="w3-container w3-round w3-green" [ngStyle]="{'width': hero.pv/initialPvHero*100+'%'}">{{hero.pv}} /{{initialPvHero}} PV</div>
       </div>
     </div>
     <div class="col-2 col-md-auto">
@@ -14,14 +14,18 @@
       <h2>{{ opponent.name | uppercase }}</h2>
       <img class="portrait-hero" src="assets\img\{{opponent.portrait}}">
       <div class="w3-light-grey w3-round col-8 nopadding">
-        <div class="w3-container w3-round w3-green" style="width:100%">{{opponent.pv}} /{{opponent.pv}} PV</div>
+        <div class="w3-container w3-round w3-green" [ngStyle]="{'width': opponent.pv/initialPvOpponent*100+'%'}">{{opponent.pv}} /{{initialPvOpponent}} PV</div>
       </div>
     </div>
   </div>
 </div>
 <div class="mt-3">
-  <p>Your score: ... </p>
+  <p>Your score: ...</p>
   <button class="btn btn-warning" (click)="launchTurn()">Fight</button>
   <button class="btn">Try again</button>
   <button class="btn">Next fight</button>
+</div>
+<div class="mt-3">
+  <div *ngFor='let message of boardService.messages' class="upscore">{{message}}</div>
+    <!--<app-messages></app-messages>-->
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NgStyle } from '@angular/common';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -20,8 +21,9 @@ export class BoardComponent implements OnInit {
   @Input() hero: Hero;
   opponent: Hero;
   heroes: Hero[];
-  weapons: Weapon[];
   weapon: Weapon;
+  initialPvHero: number;
+  initialPvOpponent: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,17 +42,22 @@ export class BoardComponent implements OnInit {
     this.heroService.getHeroes().subscribe(heroes => {
       this.heroes = heroes;
       this.opponent = this.getOpponent();
+      this.initialPvOpponent = this.opponent.pv;
     });
   }
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.heroService.getHero(id)
-    .subscribe(hero => {this.hero = hero;this.getWeapon()});
+    .subscribe(hero => {
+      this.hero = hero;
+      this.getWeapon();
+      this.initialPvHero = this.hero.pv;
+    });
   }
 
   getWeapon():void{
     const idW = +this.hero.idWeapon;
-    this.weaponService.getWeapon(idW).subscribe(weapon => {this.weapon = weapon});
+    this.weaponService.getWeapon(idW).subscribe(weapon => this.weapon = weapon);
   }
 
   // Choose an opponent in heroes
