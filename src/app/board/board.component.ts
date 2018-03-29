@@ -56,7 +56,7 @@ export class BoardComponent implements OnInit {
   }
 
   getWeapon():void{
-    const idW = +this.hero.idWeapon;
+    const idW = this.hero.idWeapon;
     this.weaponService.getWeapon(idW).subscribe(weapon => this.weapon = weapon);
   }
 

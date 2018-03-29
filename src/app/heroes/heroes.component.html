@@ -1,50 +1,14 @@
 
 <div class="container">
   <h2>My Heroes</h2>
-
   <div>
     <label>Hero name:
       <input #heroName />
     </label>
     <!-- (click) passes input value to add() and then clears the input -->
-    <button (click)="add(heroName.value); heroName.value=''">
-      add
-    </button>
-    <!--<select [(ngModel)]="hero.idWeapon" (change)="changeWeapon()">
-    <option *ngFor="let w of weapons" [ngValue]="w.id">{{w.name}}</option>
-  </select>-->
+    <button (click)="add(heroName.value); heroName.value=''">add</button>
   <!-- Bonus faire un search -->
   </div>
-<!--
-<ul class="heroes">
-<li *ngFor="let hero of heroes">
-<a routerLink="/detailhero/{{hero.id}}">
-<span class="badge">{{hero.id}}</span> {{hero.name}}
-</a>
-<button class="delete" title="delete hero" (click)="delete(hero)">x</button>
-</li>
-</ul>--
-<table class="table" matSort (matSortChange)="sortData($event)" matSortActive="name" matSortDirection="asc" matSortDisableClear>
-<thead>
-<tr>
-<td mat-sort-header="id">Id</td>
-<td mat-sort-header="name">Nom</td>
-<td mat-sort-header="atk">Attaque</td>
-<td mat-sort-header="esq">Esquive</td>
-<td mat-sort-header="pv">Points de vie</td>
-<td mat-sort-header="dgts">Dégats</td>
-</tr>
-</thead>
-<tr *ngFor="let hero of sortedData">
-<td><a routerLink="/detailhero/{{hero.id}}">{{hero.id}}</a></td>
-<td><a routerLink="/detailhero/{{hero.id}}">{{hero.name}}</a></td>
-<td>{{hero.atk}}</td>
-<td>{{hero.esq}}</td>
-<td>{{hero.pv}}</td>
-<td>{{hero.dgts}}</td>
-<td><button class="btn btn-dangerr" title="delete hero" (click)="delete(hero)">x</button></td>
-</tr>
-</table>-->
   <div class="table">
     <div class="example-header">
       <mat-form-field class="full-width">

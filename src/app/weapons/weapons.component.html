@@ -10,7 +10,7 @@
   </button>
 </div>
 
-<ul class="weapons">
+<!--<ul class="weapons">
   <li *ngFor="let weapon of weapons">
     <a routerLink="/detailweapon/{{weapon.id}}">
       <span class="badge">{{weapon.id}}</span> {{weapon.name}}
@@ -18,4 +18,62 @@
     <button class="delete" title="delete weapon"
     (click)="delete(weapon)">x</button>
   </li>
-</ul>
+</ul>-->
+
+<div class="table">
+  <div class="example-header">
+    <mat-form-field class="full-width">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> <a routerLink="/detailweapon/{{element.id}}">{{element.name}}</a></mat-cell>
+    </ng-container>
+
+    <!-- Atk Column -->
+    <ng-container matColumnDef="atk">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Attack </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.atk}} </mat-cell>
+    </ng-container>
+
+    <!-- Esq Column -->
+    <ng-container matColumnDef="esq">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Dodge </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.esq}} </mat-cell>
+    </ng-container>
+
+    <!-- PV Column -->
+    <ng-container matColumnDef="pv">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Life </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.pv}} </mat-cell>
+    </ng-container>
+
+    <!-- Dgts Column -->
+    <ng-container matColumnDef="dgts">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Damage </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dgts}} </mat-cell>
+    </ng-container>
+
+    <!-- Dgts Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef > Action </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a class="btn btn-primary" title="Edit weapon" routerLink="/detailweapon/{{element.id}}"><i class="fa fa-edit"></i></a> /
+        <button class="btn btn-danger" title="Delete weapon" (click)="delete(element)"><i class="fa fa-times mat-icon"></i></button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

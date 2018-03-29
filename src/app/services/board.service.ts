@@ -1,51 +1,60 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 import { Hero }         from '../data/hero';
 
 import { Weapon }         from '../data/weapon';
-import { WeaponService }  from '../services/weapon.service';
+import { WeaponService }  from './weapon.service';
 
 @Injectable()
 export class BoardService {
   messages: string[] = [];
-  weapon: Weapon;
-  //idHeroWeapon: number;
+  atkHeroWeapon: number;
+  dgtsHeroWeapon: number;
+  esqOpponentWeapon: number;
+  pvOpponentWeapon: number;
+  heroWeapon: Weapon;
+  opponentWeapon: Weapon;
 
   constructor(
     private weaponService: WeaponService,
   ) { }
 
-  getWeapon(idW : number){
-    this.weaponService.getWeapon(idW)
-      .subscribe(weapon => this.weapon = weapon);
-  }
-
-  //Pas encore utilisé
+  // Pas encore utilisé
   getFirstPalyer():number{
     var random = Math.floor(Math.random() * (1));
     return random;
   }
 
   resolveAttack(hero: Hero, opponent: Hero){
-    //Pour ajouter les armes, pas encore fait
-    var heroWeapon = this.getWeapon(hero.idWeapon);
-    var opponentWeapon = this.getWeapon(hero.idWeapon);
+    this.weaponService.getWeapon(hero.idWeapon).subscribe(heroWeapon => {
+      this.heroWeapon = heroWeapon;
+      this.atkHeroWeapon = this.heroWeapon.atk;
+      this.dgtsHeroWeapon = this.heroWeapon.dgts;
+    });
+    this.weaponService.getWeapon(opponent.idWeapon).subscribe(opponentWeapon => {
+      this.opponentWeapon = opponentWeapon;
+      this.esqOpponentWeapon = this.opponentWeapon.esq;
+      this.pvOpponentWeapon = this.opponentWeapon.pv;
+      });
+    //this.heroWeapon = this.getWeapon(hero.idWeapon);
+    //this.opponentWeapon = this.getWeapon(opponent.idWeapon);
+    var randAtk = Math.floor(Math.random() * (hero.atk));
+    var randEsq = Math.floor(Math.random() * (opponent.esq));
+    var atkHero = randAtk+this.atkHeroWeapon;
+    var esqOpponent = randEsq+this.esqOpponentWeapon;
 
-    var rand1 = Math.floor(Math.random() * (10));
-    var rand2 = Math.floor(Math.random() * (10));
-    if(rand1+hero.atk >= rand2+opponent.esq){
+    if(atkHero >= esqOpponent){
       //hit
-      opponent.pv = opponent.pv - hero.dgts;
+      opponent.pv = opponent.pv - (hero.dgts+this.dgtsHeroWeapon);
       if (opponent.pv<=0) {
-        console.log(hero.name);
         this.messages.push("The winner is "+hero.name);
         return 0;
         //stop we have a winner
       }
     } else {
       //miss
-      this.messages.push("miss");
+      this.messages.push("Miss");
       setTimeout(() => {
         this.messages = [];
       }, 1000);
@@ -54,7 +63,7 @@ export class BoardService {
   }
 
   executeFight(hero: Hero, opponent: Hero){
-    var i = 0;
+    var i = this.getFirstPalyer();
     var a = 1;
     Observable.interval(1100)
       .takeWhile(() => a!=0)
