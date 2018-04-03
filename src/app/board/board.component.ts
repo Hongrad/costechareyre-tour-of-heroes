@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgStyle } from '@angular/common';
 
+import { Observable } from 'rxjs/Rx';
+
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -24,6 +26,7 @@ export class BoardComponent implements OnInit {
   weapon: Weapon;
   initialPvHero: number;
   initialPvOpponent: number;
+  score: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,8 +69,26 @@ export class BoardComponent implements OnInit {
     return this.heroes[random];
   }
 
-  launchTurn(){
+  launchTurn():void{
+    /*var a = 1;
+    Observable.takeWhile(() => a!=0)
+      .subscribe(i => {
+        this.boardService.executeFight(this.hero, this.opponent);
+        this.score = this.score + this.boardService.getScore();
+        a = 0;
+        console.log(this.score);
+      });*/
     this.boardService.executeFight(this.hero, this.opponent);
+    //this.score = this.score + this.boardService.getScore();
+  }
+
+  nextFight(){
+    this.getHeroes();
+  }
+
+  restart(){
+    this.getHero();
+    this.score = 0;
   }
 
 }

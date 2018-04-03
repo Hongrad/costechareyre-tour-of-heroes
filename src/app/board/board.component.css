@@ -4,19 +4,53 @@
 }
 
 @keyframes upscore {
-    from {
-        top: 40px;
-        opacity: 1;
-    }
-    to {
-        top: 0px;
-        opacity: 0.5;
-    }
+  from {
+    top: 35%;
+    opacity: 1;
+  }
+  to {
+    top: 39%;
+    opacity: 0.5;
+  }
 }
 
 .upscore {
-    animation: upscore 2s;
-    top: 0px;
-    left: 150px;
-    font-size: 20px;
+  animation: upscore 3s;
+  left: 150px;
+  font-size: 20px;
+  position: absolute;
+  top: 39%;
+  left: 44%;
+}
+@keyframes result {
+  from {
+    top: 25%;
+    opacity: 0.5;
+  }
+  to {
+    top: 30%;
+    opacity: 1;
+  }
+}
+.win{
+  animation: result 3s;
+  position: absolute;
+  background-color: black;
+  width: 65%;
+  z-index: 99;
+  //color: #fff;
+  text-align: center;
+  top: 32%;
+  color: green;
+}
+.lose{
+  animation: result 3s;
+  position: absolute;
+  background-color: black;
+  width: 65%;
+  z-index: 99;
+  //color: #fff;
+  text-align: center;
+  top: 30%;
+  color: red;
 }

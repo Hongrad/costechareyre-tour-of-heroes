@@ -81,8 +81,12 @@ export class HeroDetailComponent implements OnInit {
     return 'Vous ne pouvez pas avoir plus de 40 points';
   }
 
+  weaponHeroValid(){
+    return ((this.hero.atk+this.weapon.atk) <= 0 || (this.hero.esq+this.weapon.esq) <=0 || (this.hero.dgts+this.weapon.dgts) <=0 || (this.hero.pv+this.weapon.pv) <=0);
+  }
+
  save(): void {
-    if(this.hero.isValid()){
+    if(this.hero.isValid() && !this.weaponHeroValid()){
     this.heroService.updateHero(this.hero)
       .subscribe(() => this.goBack());
     }

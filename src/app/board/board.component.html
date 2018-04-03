@@ -1,41 +1,46 @@
 <div *ngIf="hero&&weapon" class="mt-5">
+<h2 *ngIf="opponent.pv <= 0" class="win">VICTORY</h2>
+<h2 *ngIf="hero.pv <= 0" class="lose">WASTED</h2>
   <div class="row align-items-center">
-    <div class="col-5" style="margin:auto;">
-      <h2>{{ hero.name | uppercase }}</h2>
-      <img class="portrait-hero" src="assets\img\{{hero.portrait}}">
-      <div class="w3-light-grey w3-round col-8 nopadding">
-        <div class="w3-container w3-round w3-green" [ngStyle]="{'width': hero.pv/initialPvHero*100+'%'}">
-          <span *ngIf="hero.pv>0">{{hero.pv/initialPvHero*100}}%</span>
+    <div class="col" style="display:flex">
+      <div style="margin:auto;">
+        <h2>{{ hero.name | uppercase }}</h2>
+        <img class="portrait-hero" src="assets\img\{{hero.portrait}}" [ngStyle]="{'filter':hero.pv <= 0 ? 'grayscale(1)' : 'grayscale(0)'}">
+        <div class="w3-light-grey w3-round col-10 nopadding" style="margin:auto;">
+          <div class="w3-container w3-round w3-green" [ngStyle]="{'width': hero.pv/initialPvHero*100+'%'}">
+            <span *ngIf="hero.pv>0">{{hero.pv/initialPvHero*100}}%</span>
+          </div>
         </div>
+        <p>{{hero.pv}} /{{initialPvHero}} PV</p>
+        <!--<p>{{hero.atk + weapon.atk}} Atk</p>
+        <p>{{hero.esq + weapon.esq}} Esq</p>
+        <p>{{hero.dgts + weapon.dgts}} Dgts</p>-->
       </div>
-      <p>{{hero.pv}} /{{initialPvHero}} PV</p>
-      <p>{{hero.atk + weapon.atk}} Atk</p>
-      <p>{{hero.esq + weapon.esq}} Esq</p>
-      <p>{{hero.dgts + weapon.dgts}} Dgts</p>
     </div>
-    <div class="col-2 col-md-auto">
+    <div class="col col-md-auto">
       <h2>VS</h2>
     </div>
-    <div class="col-5" style="margin:auto;">
-      <h2>{{ opponent.name | uppercase }}</h2>
-      <img class="portrait-hero" src="assets\img\{{opponent.portrait}}">
-      <div class="w3-light-grey w3-round col-8 nopadding">
-        <div class="w3-container w3-round w3-green" [ngStyle]="{'width': opponent.pv/initialPvOpponent*100+'%'}">
-          <span *ngIf="opponent.pv>0">{{opponent.pv/initialPvOpponent*100}}%</span>
+    <div class="col" style="display:flex">
+      <div style="margin:auto;">
+        <h2>{{ opponent.name | uppercase }}</h2>
+        <img class="portrait-hero" src="assets\img\{{opponent.portrait}}" [ngStyle]="{'filter':opponent.pv <= 0 ? 'grayscale(1)' : 'grayscale(0)'}">
+        <div class="w3-light-grey w3-round col-10 nopadding" style="margin:auto;">
+          <div class="w3-container w3-round w3-green" [ngStyle]="{'width': opponent.pv/initialPvOpponent*100+'%'}">
+            <span *ngIf="opponent.pv>0">{{opponent.pv/initialPvOpponent*100}}%</span>
+          </div>
         </div>
+        <p>{{opponent.pv}} /{{initialPvOpponent}} PV</p>
       </div>
-      <p>{{opponent.pv}} /{{initialPvOpponent}} PV</p>
     </div>
   </div>
 </div>
-<div class="mt-3">
-  <p>Your score: ...*</p>
+<div *ngIf="hero&&weapon" class="mt-3">
+  <p>Your score: {{score}}</p>
   <button class="btn btn-warning" (click)="launchTurn()">Fight</button>
-  <button class="btn">Try again*</button>
-  <button class="btn">Next fight*</button>
+  <button *ngIf="hero.pv <= 0" class="btn" (click)="restart()">Try again</button>
+  <button *ngIf="opponent.pv <= 0" class="btn" (click)="nextFight()">Next fight</button>
 </div>
 <div class="mt-3">
   <div *ngFor='let message of boardService.messages' class="upscore">{{message}}</div>
-    <!--<app-messages></app-messages>-->
 </div>
 (*)Not implement

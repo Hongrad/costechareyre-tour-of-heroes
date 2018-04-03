@@ -9,8 +9,8 @@
   <div class="row">
     <div class="col">
       <div *ngIf="weapon">
-        <h4>Ce héro possède une arme</h4>
-        <a routerLink="/detailweapon/{{weapon.id}}" >{{weapon.name}}</a>
+        <h4>Ce héro possède l'arme : <b><a routerLink="/detailweapon/{{weapon.id}}" >{{weapon.name}}</a></b> </h4>
+        <br>
         <label>Choisir une autre arme</label>
         <select [(ngModel)]="hero.idWeapon" (change)="changeWeapon()">
           <option *ngFor="let w of weapons" [ngValue]="w.id">{{w.name}}</option>
@@ -20,6 +20,7 @@
         <h4>Caractéristiques du héro</h4>
         <p *ngIf="this.hero.getPoints()>=0" >Il reste: {{this.hero.getPoints()}} à répartir</p>
         <p *ngIf="this.hero.getPoints()<0" style="color:red;">{{message()}}</p>
+        <p *ngIf="weaponHeroValid()" style="color:red;">Vous ne pouvez pas avoir de caractéristiques négatives</p>
         <div>
           <span><b>{{hero.atk + weapon.atk}}</b> Attaque: </span>{{hero.atk}} + ({{weapon.atk}})
           <button (click)="moins('atk')">-</button>
@@ -41,11 +42,12 @@
           <button (click)="plus('dgts')">+</button>
         </div>
         <br>
-        <button (click)="goBack()">Go back</button>
-        <button (click)="save()">Save</button>
+        <button class="btn" (click)="goBack()">Go back</button>
+        <button class="btn" (click)="save()">Save</button>
+        <a class="btn btn-success" title="Play with hero" routerLink="/game/{{hero.id}}">Play</a>
       </div>
     </div>
-    <div class="col-8">
+    <div class="col">
       <img class="portrait-hero" src="assets\img\{{hero.portrait}}">
     </div>
   </div>
