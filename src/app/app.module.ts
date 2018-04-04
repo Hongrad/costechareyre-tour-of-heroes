@@ -59,6 +59,7 @@ import { MessagesComponent }    from './messages/messages.component';
 import { WeaponsComponent } from './weapons/weapons.component';
 import { WeaponDetailComponent } from './weapon-detail/weapon-detail.component';
 import { BoardComponent } from './board/board.component';
+import { MyDialogComponent } from './my-dialog/my-dialog.component';
 
 @NgModule({
   exports: [
@@ -95,7 +96,6 @@ import { BoardComponent } from './board/board.component';
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [BoardService],
 })
 export class DemoMaterialModule {}
 
@@ -126,9 +126,13 @@ export class DemoMaterialModule {}
     HeroSearchComponent,
     WeaponsComponent,
     WeaponDetailComponent,
-    BoardComponent
+    BoardComponent,
+    MyDialogComponent,
   ],
-  providers: [ HeroService, MessageService,WeaponService ],
+  providers: [ BoardService, HeroService, MessageService, WeaponService ],
+  entryComponents: [
+    MyDialogComponent,
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

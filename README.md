@@ -29,7 +29,19 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Description of my application
 
-Affichage de tout les héros avec tri sur attribut, idem pour les armes
-Gestion d'un héro => Attribution d'une arme, modification des caractéristiques, suppresion, ajout
-Gestion d'une arme => Modification des caractéristiques, suppresion, ajout
+Affichage de tous les héros avec tri sur attributs, idem pour les armes
+
+Gestion d'un héros => Attribution d'une arme, modification des caractéristiques, suppression, ajout
+
+Gestion d'une arme => Modification des caractéristiques, suppression, ajout
+
 Simulation de combat au tour par tour avec affichage du déroulement
+
+Gain de 100 points d’expérience par combat gagné sans avoir perdu
+
+Si vous voulez créer un nouveau héro, vous pouvez choisir une image dans src/assets/img/
+
+/!\ Lors d'un combat les pv de l'arme ne sont pas pris en compte pour l'instant
+/!\ Si vous supprimez une arme qui appartient à un héro il viendra vous hanter et vous empêchera de continuer à jouer
+
+ENJOY !

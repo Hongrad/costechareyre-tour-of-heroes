@@ -48,7 +48,9 @@
       </div>
     </div>
     <div class="col">
-      <img class="portrait-hero" src="assets\img\{{hero.portrait}}">
+      <img *ngIf="hero.portrait" class="portrait-hero" src="assets\img\{{hero.portrait}}">
+      <p>{{fileName}}</p>
+      <input [(ngModel)]="hero.portrait" type="file" accept="image/gif, image/jpeg, image/png" (change)="changePortrait($event)">
     </div>
   </div>
 </div>

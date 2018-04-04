@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgStyle } from '@angular/common';
-
-import { Observable } from 'rxjs/Rx';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -13,6 +12,8 @@ import { Weapon }         from '../data/weapon';
 import { WeaponService }  from '../services/weapon.service';
 
 import { BoardService }  from '../services/board.service';
+
+import { MyDialogComponent } from '../my-dialog/my-dialog.component';
 
 @Component({
   selector: 'app-board',
@@ -26,14 +27,15 @@ export class BoardComponent implements OnInit {
   weapon: Weapon;
   initialPvHero: number;
   initialPvOpponent: number;
-  score: number = 0;
+  dialogResult = "";
 
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
     private boardService: BoardService,
     private location: Location,
-    private weaponService: WeaponService
+    private weaponService: WeaponService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +56,7 @@ export class BoardComponent implements OnInit {
     .subscribe(hero => {
       this.hero = hero;
       this.getWeapon();
-      this.initialPvHero = this.hero.pv;
+      this.initialPvHero = this.hero.pv;//+this.weapon.pv
     });
   }
 
@@ -70,16 +72,7 @@ export class BoardComponent implements OnInit {
   }
 
   launchTurn():void{
-    /*var a = 1;
-    Observable.takeWhile(() => a!=0)
-      .subscribe(i => {
-        this.boardService.executeFight(this.hero, this.opponent);
-        this.score = this.score + this.boardService.getScore();
-        a = 0;
-        console.log(this.score);
-      });*/
     this.boardService.executeFight(this.hero, this.opponent);
-    //this.score = this.score + this.boardService.getScore();
   }
 
   nextFight(){
@@ -88,7 +81,17 @@ export class BoardComponent implements OnInit {
 
   restart(){
     this.getHero();
-    this.score = 0;
+    this.hero.experience = 0;
+  }
+
+  openDialog() {
+    let dialogRef = this.dialog.open(MyDialogComponent, {
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+    })
   }
 
 }

@@ -10,8 +10,9 @@ export class Hero {
   private _pv: number; // Point de vie
   private _dgts: number; // Dégats
   private _portrait: string;
+  private _experience: number;
 
-  constructor(id: number, name: string, idWeapon: number, atk: number = 10, esq: number = 10, dgts: number = 10, pv: number = 10, portrait: string){
+  constructor(id: number, name: string, idWeapon: number, atk: number = 10, esq: number = 10, dgts: number = 10, pv: number = 10, portrait: string, experience: number = 0){
     this._id = id;
     this._name = name;
     this._idWeapon = idWeapon;
@@ -20,6 +21,7 @@ export class Hero {
     this._pv = pv;
     this._dgts = dgts;
     this._portrait = portrait;
+    this._experience = experience;
   }
 
   get id():number{
@@ -67,6 +69,12 @@ export class Hero {
   set portrait(portrait:string){
     this._portrait = portrait;
   }
+  get experience(){
+    return this._experience;
+  }
+  set experience(experience:number){
+    this._experience = experience;
+  }
 
   getPoints(): number {
     return (Hero._MAX-(this.atk+this.esq+this.pv+this.dgts));
@@ -76,11 +84,11 @@ export class Hero {
   }
 
   static fromJSONArray(array: Array<Object>): Hero[] {
-    return array.map(obj => new Hero(obj['id'], obj['name'],obj['idWeapon'], obj['atk'], obj['dgts'], obj['esq'], obj['pv'],obj['portrait']));
+    return array.map(obj => new Hero(obj['id'], obj['name'],obj['idWeapon'], obj['atk'], obj['dgts'], obj['esq'], obj['pv'],obj['portrait'],obj['experience']));
   }
 
   static fromJSON(object: Object): Hero {
-    return new Hero(object['id'], object['name'],object['idWeapon'], object['atk'], object['dgts'], object['esq'], object['pv'],object['portrait']);
+    return new Hero(object['id'], object['name'],object['idWeapon'], object['atk'], object['dgts'], object['esq'], object['pv'],object['portrait'],object['experience']);
   }
 
   getJSONObject(): Object {
@@ -93,6 +101,7 @@ export class Hero {
     object['dgts'] = this.dgts;
     object['pv'] = this.pv;
     object['portrait'] = this.portrait;
+    object['experience'] = this.experience;
     return object;
   }
 }

@@ -41,9 +41,10 @@ export class BoardService {
     if(atkHero >= esqOpponent){
       //hit
       //this.printMessage("Hit");
-      opponent.pv = opponent.pv - (hero.dgts+this.dgtsHeroWeapon);
+      opponent.pv = opponent.pv - (hero.dgts+this.dgtsHeroWeapon); // Devrait etre rajouté les  pv de l'arme
       if (opponent.pv<=0) {
         this.printMessage("The winner is "+hero.name);
+        hero.experience = hero.experience +100;
         return 0;
         //stop we have a winner
       }
@@ -64,10 +65,8 @@ export class BoardService {
       .subscribe(i => {
           if(i%2==0){
             winner = this.resolveAttack(hero, opponent);
-            this.score = 100;
           }else{
             winner = this.resolveAttack(opponent, hero);
-            this.score = 0;
           }
           i++;
         });
@@ -80,9 +79,5 @@ export class BoardService {
     setTimeout(() => {
       this.messages = [];
     }, 1000);
-  }
-
-  getScore(){
-    return this.score;
   }
 }

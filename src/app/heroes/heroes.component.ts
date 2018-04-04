@@ -28,7 +28,9 @@ export class HeroesComponent implements OnInit {
   getHeroes(): void {
     this.heroService.getHeroes().subscribe(heroes => {
       this.heroes = heroes;
+      // On charge dans dataSource le tableau des héros
       this.dataSource = new MatTableDataSource(this.heroes);
+      // On y applique le tri choisi par défaut
       this.dataSource.sort = this.sort;
     });
   }

@@ -1,5 +1,4 @@
 <h2>All weapon</h2>
-
 <div>
   <label>Weapon name:
     <input #weaponName />
@@ -9,16 +8,6 @@
     create a new weapon
   </button>
 </div>
-
-<!--<ul class="weapons">
-  <li *ngFor="let weapon of weapons">
-    <a routerLink="/detailweapon/{{weapon.id}}">
-      <span class="badge">{{weapon.id}}</span> {{weapon.name}}
-    </a>
-    <button class="delete" title="delete weapon"
-    (click)="delete(weapon)">x</button>
-  </li>
-</ul>-->
 
 <div class="table">
   <div class="example-header">
@@ -68,8 +57,8 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef > Action </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <a class="btn btn-primary" title="Edit weapon" routerLink="/detailweapon/{{element.id}}"><i class="fa fa-edit"></i></a> /
-        <button class="btn btn-danger" title="Delete weapon" (click)="delete(element)"><i class="fa fa-times mat-icon"></i></button>
+        <a *ngIf="element.name != 'No weapon' " class="btn btn-primary" title="Edit weapon" routerLink="/detailweapon/{{element.id}}"><i class="fa fa-edit"></i></a> /
+        <button *ngIf="element.name != 'No weapon' " class="btn btn-danger" title="Delete weapon" (click)="delete(element)"><i class="fa fa-times mat-icon"></i></button>
       </mat-cell>
     </ng-container>
 
@@ -77,3 +66,4 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
+/!\ Si vous supprimez une arme qui appartient à un héro il viendra vous hanter et vous empêchera  de continuer à jouer

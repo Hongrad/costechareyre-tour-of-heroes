@@ -17,6 +17,7 @@ export class HeroDetailComponent implements OnInit {
   @Input() hero: Hero;
   weapons: Weapon[];
   weapon: Weapon;
+  fileName : string;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +36,7 @@ export class HeroDetailComponent implements OnInit {
   }
 
   changeWeapon():void{
-    const idW = +this.hero.idWeapon;
+    const idW = this.hero.idWeapon;
     this.weaponService.getWeapon(idW).subscribe(weapon => {this.weapon = weapon});
   }
   getWeapons(): void {
@@ -83,6 +84,11 @@ export class HeroDetailComponent implements OnInit {
 
   weaponHeroValid(){
     return ((this.hero.atk+this.weapon.atk) <= 0 || (this.hero.esq+this.weapon.esq) <=0 || (this.hero.dgts+this.weapon.dgts) <=0 || (this.hero.pv+this.weapon.pv) <=0);
+  }
+
+  changePortrait(event){
+    this.fileName = event.target.files[0].name;
+    this.hero.portrait = this.fileName;
   }
 
  save(): void {

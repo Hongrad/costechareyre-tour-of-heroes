@@ -1,4 +1,3 @@
-<p>une arme</p>
 <div *ngIf="weapon">
   <h2>{{ weapon.name | uppercase }} Details</h2>
   <div><span>id: </span>{{weapon.id}}</div>
@@ -34,3 +33,5 @@
   <button (click)="goBack()">go back</button>
   <button (click)="save()">save</button>
 </div>
+<p>Une caractéristique est comprise entre -5 et 5 points</p>
+/!\ Lors d'un combat les pv de l'arme ne sont pas pris en compte pour l'instant /!\
